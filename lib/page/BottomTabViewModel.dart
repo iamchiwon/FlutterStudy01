@@ -1,6 +1,6 @@
-class BottomTabViewModel {
-  Function refresh = () {};
+import '../framework/ViewModel.dart';
 
+class BottomTabViewModel extends ViewModel{
   int currentTabIndex = 0;
 
   onChangeTab(int index) {
@@ -8,3 +8,4 @@ class BottomTabViewModel {
     refresh();
   }
 }
+

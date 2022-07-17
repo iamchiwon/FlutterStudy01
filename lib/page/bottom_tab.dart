@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sample01/framework/ViewModel.dart';
 import 'package:sample01/page/home/home_page.dart';
 import 'package:sample01/page/news/news_page.dart';
 import 'package:sample01/page/profile/profile_page.dart';
@@ -15,7 +16,8 @@ class BottomTab extends StatefulWidget {
 }
 
 class _BottomTabState extends State<BottomTab> {
-  final _viewModel = BottomTabViewModel();
+  BottomTabViewModel? _viewModel;
+
   final _pages = [
     const HomePage(),
     const ShopPage(),
@@ -26,27 +28,26 @@ class _BottomTabState extends State<BottomTab> {
 
   @override
   void initState() {
-    _viewModel.refresh = () {
-      setState(() {});
-    };
+    _viewModel = createViewModel(BottomTabViewModel());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  _pages[_viewModel.currentTabIndex],
+      body: _pages[_viewModel!.currentTabIndex],
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Colors.grey,
         selectedItemColor: Colors.black,
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
-        onTap: _viewModel.onChangeTab,
-        currentIndex: _viewModel.currentTabIndex,
+        onTap: _viewModel!.onChangeTab,
+        currentIndex: _viewModel!.currentTabIndex,
         items: const [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
-          BottomNavigationBarItem(icon: Icon(Icons.shopping_bag), label: "Shops"),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.shopping_bag), label: "Shops"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
           BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
           BottomNavigationBarItem(
