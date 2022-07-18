@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'page/bottom_tab.dart';
 
@@ -11,13 +11,12 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const CupertinoApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      theme: CupertinoThemeData(
+        primaryColor: CupertinoColors.activeOrange,
       ),
-      home: const BottomTab(),
+      home: BottomTab(),
     );
   }
 }

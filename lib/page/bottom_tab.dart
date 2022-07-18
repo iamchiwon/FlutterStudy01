@@ -1,12 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sample01/framework/ViewModel.dart';
 import 'package:sample01/page/home/home_page.dart';
 import 'package:sample01/page/news/news_page.dart';
 import 'package:sample01/page/profile/profile_page.dart';
 import 'package:sample01/page/search/search_page.dart';
 import 'package:sample01/page/shop/shop_page.dart';
-
-import 'BottomTabViewModel.dart';
 
 class BottomTab extends StatefulWidget {
   const BottomTab({Key? key}) : super(key: key);
@@ -16,8 +14,6 @@ class BottomTab extends StatefulWidget {
 }
 
 class _BottomTabState extends State<BottomTab> {
-  BottomTabViewModel? _viewModel;
-
   final _pages = [
     const HomePage(),
     const ShopPage(),
@@ -27,33 +23,25 @@ class _BottomTabState extends State<BottomTab> {
   ];
 
   @override
-  void initState() {
-    _viewModel = createViewModel(BottomTabViewModel());
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pages[_viewModel!.currentTabIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey,
-        selectedItemColor: Colors.black,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        onTap: _viewModel!.onChangeTab,
-        currentIndex: _viewModel!.currentTabIndex,
+    return CupertinoTabScaffold(
+      tabBar: CupertinoTabBar(
         items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.shopping_bag), label: "Shops"),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: "Search"),
-          BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: "News"),
+              icon: Icon(CupertinoIcons.home), label: "Home"),
           BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle), label: "Profile"),
+              icon: Icon(CupertinoIcons.shopping_cart), label: "Shops"),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.search), label: "Search"),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.news), label: "News"),
+          BottomNavigationBarItem(
+              icon: Icon(CupertinoIcons.profile_circled), label: "Profile"),
         ],
       ),
+      tabBuilder: (context, index) {
+        return _pages[index];
+      },
     );
   }
 }
